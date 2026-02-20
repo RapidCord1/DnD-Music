@@ -65,7 +65,7 @@ def snare_soft(dur,vol=0.1):
     env = np.linspace(1,0,len(wave))
     return wave*env*vol
 
-# ---------------- Tempo ----------------
+# Tempo
 bpm = 80
 q_sec = 60/bpm
 measures = 4
@@ -73,7 +73,7 @@ measure_len = q_sec*4
 total_time = measure_len*measures + 2.5
 track = np.zeros(int(total_time*SR))
 
-# ---------------- Score ----------------
+# Score
 flute_events = [
     ("F4",0.0,1*q_sec),("G4",1*q_sec,0.5*q_sec),("F4",1.5*q_sec,0.5*q_sec),
     ("Ab4",2*q_sec,1*q_sec),("rest",3*q_sec,1*q_sec),
@@ -120,7 +120,7 @@ def place_event(track,instr,note,start,dur,vol=1.0):
     track[si:ei]+=wave
     return track
 
-# ---------------- Place Events ----------------
+# Place Events
 for n,s,d in flute_events: track=place_event(track,'flute',n,s,d,0.36)
 for n,s,d in clarinet_events: track=place_event(track,'clar',n,s,d,0.30)
 for n,s,d in alto_events: track=place_event(track,'alto',n,s,d,0.28)
@@ -128,7 +128,7 @@ for n,s,d in trumpet_events: track=place_event(track,'trump',n,s,d,0.26)
 for s,o,d in bd_events: track=place_event(track,'bd',"F2",s,d,0.18)
 for s,o,d in sn_events: track=place_event(track,'sn',"snare",s,d,0.08)
 
-# ---------------- Boom Chord (measure 4) ----------------
+# Boom Chord (measure 4)
 boom_notes = ["F5","Ab5","C6","F5"]
 for i,note in enumerate(boom_notes):
     wave = trumpet_tone(note_to_freq(note),1.6,0.6)
@@ -143,9 +143,10 @@ si = int(3*q_sec*SR)
 ei = si+len(bd_big)
 track[si:ei]+=bd_big
 
-# ---------------- Normalize and play ----------------
+# Normalize and play
 track /= np.max(np.abs(track))
 audio = (track*32767).astype(np.int16)
 print("Playing 4-measure sneaky -> high boom...")
 sa.play_buffer(audio,1,2,SR).wait_done()
 print("Done.")
+
