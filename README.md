@@ -1,5 +1,5 @@
 # DnD-Music
-Python project using simpleaudio to make Dungeons and Dragons style music
+Python project using simpleaudio to make Dungeons and Dragons style music. Has a simple initilatization if you want to make your own music.
 
 ## Dependencies
 
